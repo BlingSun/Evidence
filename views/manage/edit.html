@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+            />
+    <title></title>
+   <link rel="stylesheet" href="../css/index.css">
+
+    <script src="../js/jquery-2.0.3.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+
+    <script src="../assets/js/jquery-validation-1.14.0/dist/jquery.validate.js"></script>
+    <style>
+
+        label{
+            width:100px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="content" style="margin-top:0px">
+
+        <div class="main m-width" style="margin-top:0px">
+            <div class="manual">
+                <form role="form" action="" class="myForm" id="form1" style="margin-top:0px">
+                    <div class="form-group">
+                        <label><span style="color:red">*</span>名称：</label>
+                        <input type="text" class="form-control" id="user" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label><span style="color:red">*</span>账号：</label>
+                        <input type="text" class="form-control" id="account">
+                    </div>
+                    <div class="form-group">
+                        <label><span style="color:red">*</span>密码：</label>
+                        <input type="text" class="form-control" id="password">
+                    </div>
+                    <div class="form-group">
+                        <label><span style="color:red">*</span>权限：</label>
+                        <input type="text" class="form-control" id="root">
+                    </div>
+                    <div class="form-group">
+                        <label><span style="color:red">*</span>联系电话：</label>
+                        <input type="text" class="form-control" id="tel">
+                    </div>
+                    <div class="btnGroup">
+                        <button type="submit" class="btn btn-primary wyqzSubmit">确定</button>
+                        <button type="button" class="btn btn-success reset">重置</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        // validate the form when it is submitted
+        var validator = $("#form1").validate({});
+
+        $(".cancel").click(function() {
+            validator.resetForm();
+        });
+    })
+</script>
+</body>
+
+</html>

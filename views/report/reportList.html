@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+            />
+    <title></title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <link rel="stylesheet" href="../assets/js/layer/skin/moon/style.css">
+    <link href="../assets/js/jplist1/jplist.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/js/jplist1/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+    <script src="../js/jquery-2.0.3.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <script src="../js/index.js"></script>
+    <!--<script src="../assets/js/jquery.nicescroll.min.js"></script>-->
+
+    <script src="../assets/js/layer/layer.js"></script>
+    <script src="../assets/js/fileinput/fileinput.js"></script>
+
+
+
+    <script src="../assets/js/jplist1/jplist.core-ajax.min.js"></script>
+    <!--<script src="../assets/js/jplist1/jplist.counter-control.min.js"></script>  -->
+    <script src="../assets/js/jplist1/jplist.filter-toggle-bundle.min.js"></script>
+    <script src="../assets/js/jplist1/jplist.pagination-bundle.min.js"></script>
+    <script src="../assets/js/jplist1/jplist.textbox-filter.min.js"></script>
+    <!--<script src="../assets/js/jplist1/jplist.list-grid-view.min.js"></script>-->
+    <script src="../assets/js/jplist1/jplist.preloader-control.min.js"></script>
+    <script src="../assets/js/jplist1/jplist.jquery-ui-bundle.min.js"></script>
+
+    <script src="../assets/js/jplist1/mustache.js"></script>
+    <script src="../assets/js/jplist1/jquery-ui.js"></script>
+    <script src="../assets/js/jplist1/jquery.form.min.js"></script>
+    <script>
+        $('document').ready(function () {
+            /**
+             * user defined functions
+             */
+            jQuery.fn.jplist.settings = {
+
+                /**
+                 * jQuery UI date picker
+                 */
+                datepicker: function(input, options){
+
+                    //set options
+                    options.dateFormat = 'yy-mm-dd';
+                    options.changeMonth = true;
+                    options.changeYear = true;
+
+                    //start datepicker
+                    input.datepicker(options);
+                }
+
+            };
+
+            var $list = $('#demo .listdiv')
+                    , template = Mustache.compile($('#jplist-template').html());
+
+            //init jplist with php + mysql data source, json and Mustache template
+            $('#demo').jplist({
+
+                itemsBox: '.list'
+                , itemPath: '.list-item'
+                , panelPath: '.jplist-panel'
+
+                //data source
+                , dataSource: {
+
+                    type: 'server'
+                    , server: {
+
+                        //ajax settings
+                        ajax: {
+                            url: 'http://localhost:3000/jplist'
+                            , dataType: 'json'
+                            , type: 'POST'
+                        }
+                    }
+
+                    //render function for json + templates like Mustache, xml + xslt etc.
+                    , render: function (dataItem, statuses) {
+                        console.log(dataItem);
+                        $list.html(template(dataItem.content));
+                    }
+                }
+
+            });
+
+            $(".jplist-group li").click(function(event){
+                event.preventDefault();
+                console.log($(this).hasClass("jplist-selected"));
+                if(!$(this).hasClass("jplist-selected")){
+                    $(this).addClass("jplist-selected");
+                }
+                else{
+                    $(this).removeClass("jplist-selected");
+                }
+            })
+
+//            全选
+            $(".check-group").on("click",function(){
+                if($(this).prop("checked")){
+                    $(".check").prop("checked","checked");
+                }
+                else{
+                    $(".check").removeAttr("checked");
+                }
+            })
+        });
+
+        function daoru(){
+           var file= $("#fileinput").val();
+            if(file==''){
+                alert("请先上传文件！");
+            }
+            else{
+                $.ajax({
+
+                })
+            }
+
+        }
+    </script>
+    <!-- Mustache template -->
+    <script id="jplist-template" type="x-tmpl-mustache">
+			{{#.}}
+
+              <div class="list clearfix">
+                    <div class="detail">
+                        <div>
+                            <a href="{{href}}" target="_blank" class="title">{{name}}</a>
+                            <span class="style">类型：{{style}}</span>
+                            <span class="infostyle">信息类型：{{infostyle}}</span>
+                            <span class="person">举报人员：{{customer}}</span>
+                            <span class="time">时间：{{data}}</span>
+                        </div>
+                        <div class="info">举报内容：wrfsfsdsf</div>
+
+                    </div>
+                    <div class="operate">
+                        <ul>
+                            <li>
+                                <a class="spot" onclick="detail()"><span style="background-color: #337ab7"></span><span>查看</span></a>
+                            </li>
+                            <li>
+                                <input type="checkbox">
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+			{{/.}}
+		</script>
+    <style>
+        .jplist-panel .jplist-group{
+            border:none;
+            text-shadow:none;
+
+        }
+        .jplist-panel .jplist-group ul li span{
+            padding: 0 5px;
+            display:block;
+
+        }
+        .jplist-selected{
+            background-color:#efd600;
+            color:#fff;
+
+        }
+        .jplist-no-results{
+            float: left;
+            text-align: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body style="">
+
+<header>
+    <div class="head-nav m-width">
+        <div class="logo">
+            <img src="../img/logoimg.png">
+            <div class="hidden-xs">大卜科技</div>
+        </div>
+
+        <!--<div class="nav-toggle"><hr><hr><hr></div>-->
+        <div class="toolbar">
+            <ul>
+                <li class="tool-item"><a><span class="glyphicon glyphicon-bell"></span></a></li>
+                <!--<li class="tool-item"><a><span class="glyphicon glyphicon-folder-open"></span></a></li>-->
+
+                <li class="tool-item dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li>
+                            <a href="../person.html"><i class="icon-user" style="color:#337ab7;margin-right:10px;"></i>个人中心</a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li>
+                            <a href="../manage/user.html"><i class="icon-sitemap" style="color:#337ab7;margin-right:10px;"></i>账号管理</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="../login.html"><i class="icon-signout" style="color:#337ab7;margin-right:10px;"></i>退出</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--搜索框-->
+        <!--<div class="input-group hidden-xs search">-->
+        <!--<span class="input-group-addon" style="color:white;background-color:rgba(255,255,255,0);"><i class="icon-search"></i></span>-->
+        <!--<input type="text" class="form-control" style="color:white;background-color:rgba(255,255,255,0);border:1px solid #ddd">-->
+        <!--</div>-->
+    </div>
+
+</header>
+<div class="container">
+    <div class="content">
+        <div class="crumb-bar">
+            <div class="m-width">
+                <a class="graph-icon active" href="../report/reportList.html"><i class="icon-globe"></i><span class="hidden-xs">举报受理</span></a>
+                <a class="graph-icon" href="../evidence/report-info.html"><i class="icon-laptop"></i><span class="hidden-xs">电子取证</span></a>
+                <a class="graph-icon" href="../deal/deal-info.html"><i class=" icon-rss"></i><span class="hidden-xs">信息处置</span></a>
+                <a class="graph-icon" href="../analyse/data-analyse.html"><i class="icon-bar-chart"></i><span class="hidden-xs">统计分析</span></a>
+            </div>
+        </div>
+        <div class="main m-width">
+
+
+            <!--//////////////////////////////////////////////////////-->
+
+
+            <div>
+                <!-- main content -->
+                <div class="box">
+                    <div class="center">
+                        <!--<><><><><><><><><><><><><><><><><><><><><><><><><><> DEMO START <><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+
+
+
+                        <!-- demo -->
+                        <div id="demo" class="box jplist">
+
+                            <!-- ios button: show/hide panel -->
+                            <div class="jplist-ios-button">
+                                <i class="fa fa-sort"></i>
+                            </div>
+
+                            <!-- panel -->
+                            <div class="jplist-panel box panel-top">
+                                <!-- 选择 -->
+                                <div class="jplist-group" style="width:100%;background-color: rgba(255,255,255,0)">
+
+                                    <ul>
+
+                                        <li class="rukou">
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="jbxt-btn"
+                                         data-path=".block"
+                                         data-text="jbxt">
+									   <i class="fa fa-caret-right"></i>
+									  举报系统
+								 </span>
+                                        </li>
+
+                                        <li class="rukou">
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="oaxt-btn"
+                                         data-path=".block"
+                                         data-text="oaxt">
+									   <i class="fa fa-caret-right"></i>
+									 OA系统
+								 </span>
+                                        </li>
+
+                                        <li class="rukou">
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="yqxt-btn"
+                                         data-path=".block"
+                                         data-text="yqxt">
+									   <i class="fa fa-caret-right"></i>
+									   舆情系统
+								 </span>
+                                        </li>
+
+                                        <li class="rukou">
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="sjdr-btn"
+                                         data-path=".block"
+                                         data-text="sjdr">
+									   <i class="fa fa-caret-right"></i>
+									   数据导入
+								 </span>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="jplist-group">
+
+                                    <ul>
+                                        <li>
+								 <span style="color:#ec971f">
+									   <i class="fa fa-caret-right"></i>
+									  举报类型：
+								 </span>
+                                        </li>
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="wz-btn"
+                                         data-path=".style"
+                                         data-text="wz">
+									   <i class="fa fa-caret-right"></i>
+									  网站/客户端链接
+								 </span>
+                                        </li>
+
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="ss-btn"
+                                         data-path=".style"
+                                         data-text="ss">
+									   <i class="fa fa-caret-right"></i>
+									   搜索引擎
+								 </span>
+                                        </li>
+
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="app-btn"
+                                         data-path=".style"
+                                         data-text="app">
+									   <i class="fa fa-caret-right"></i>
+									   违法APP
+								 </span>
+                                        </li>
+
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="js-btn"
+                                         data-path=".style"
+                                         data-text="js">
+									   <i class="fa fa-caret-right"></i>
+									   即时通讯账号
+								 </span>
+                                        </li>
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="wp-btn"
+                                         data-path=".style"
+                                         data-text="wp">
+									   <i class="fa fa-caret-right"></i>
+									   网盘账号
+								 </span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="jplist-group">
+
+                                    <ul>
+                                        <li>
+								 <span style="color:#ec971f">
+									   <i class="fa fa-caret-right"></i>
+									  信息类型：
+								 </span>
+                                        </li>
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="zz-btn"
+                                         data-path=".infostyle"
+                                         data-text="zz">
+									   <i class="fa fa-caret-right"></i>
+									  政治类
+								 </span>
+                                        </li>
+
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="bk-btn"
+                                         data-path=".infostyle"
+                                         data-text="bk">
+									   <i class="fa fa-caret-right"></i>
+									  暴恐类
+								 </span>
+                                        </li>
+
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="yy-btn"
+                                         data-path=".infostyle"
+                                         data-text="yy">
+									   <i class="fa fa-caret-right"></i>
+									   谣言类
+								 </span>
+                                        </li>
+
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="sq-btn"
+                                         data-path=".infostyle"
+                                         data-text="sq">
+									   <i class="fa fa-caret-right"></i>
+									   色情类
+								 </span>
+                                        </li>
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="ds-btn"
+                                         data-path=".infostyle"
+                                         data-text="ds">
+									   <i class="fa fa-caret-right"></i>
+									   低俗类
+								 </span>
+                                        </li>
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="db-btn"
+                                         data-path=".infostyle"
+                                         data-text="db">
+									   <i class="fa fa-caret-right"></i>
+									   赌博类
+								 </span>
+                                        </li>
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="zp-btn"
+                                         data-path=".infostyle"
+                                         data-text="zp">
+									   <i class="fa fa-caret-right"></i>
+									   诈骗类
+								 </span>
+                                        </li>
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="qq-btn"
+                                         data-path=".infostyle"
+                                         data-text="qq">
+									   <i class="fa fa-caret-right"></i>
+									   侵权类
+								 </span>
+                                        </li>
+                                        <li>
+								 <span
+                                         data-control-type="button-text-filter"
+                                         data-control-action="filter"
+                                         data-control-name="qt-btn"
+                                         data-path=".infostyle"
+                                         data-text="qt">
+									   <i class="fa fa-caret-right"></i>
+									   其他类
+								 </span>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+
+
+                                <!-- date picker range filter -->
+                                <!-- data-datepicker-func is a user function defined in jQuery.fn.jplist.settings -->
+                                <div
+                                        data-control-type="date-picker-range-filter"
+                                        data-control-name="date-picker-range-filter"
+                                        data-control-action="filter"
+                                        data-path=".time"
+                                        data-datetime-format="{month}-{day}-{year}"
+                                        data-datepicker-func="datepicker"
+                                        class="jplist-date-picker-range">
+
+                                    <i class="icon-calendar jplist-icon" aria-hidden="true"></i>
+                                    <input
+                                            type="text"
+                                            class="date-picker"
+                                            placeholder="起始时间"
+                                            data-type="prev" />
+
+                                    <i class="icon-minus gap" style="margin-top:8px;" aria-hidden="true"></i>
+
+                                    <i class="icon-calendar jplist-icon" aria-hidden="true"></i>
+                                    <input
+                                            type="text"
+                                            class="date-picker"
+                                            placeholder="结束时间"
+                                            data-type="next"/>
+                                </div>
+                                <!-- reset button -->
+                                <!--<button-->
+                                <!--type="button"-->
+                                <!--class="jplist-reset-btn"-->
+                                <!--data-control-type="reset"-->
+                                <!--data-control-name="reset"-->
+                                <!--data-control-action="reset">-->
+                                <!--重置 &nbsp;<i class="fa fa-share"></i>-->
+                                <!--</button>-->
+
+                                <div
+                                        class="jplist-drop-down"
+                                        data-control-type="items-per-page-drop-down"
+                                        data-control-name="paging"
+                                        data-control-action="paging">
+
+                                    <ul>
+                                        <li><span data-number="3"> 3 / 页 </span></li>
+                                        <li><span data-number="5"> 5 / 页 </span></li>
+                                        <li><span data-number="10" data-default="true"> 10 / 页 </span></li>
+                                        <li><span data-number="all"> 全部 </span></li>
+                                    </ul>
+                                </div>
+
+
+
+                                <!-- filter by title -->
+                                <!--<div class="text-filter-box">-->
+
+                                <!--&lt;!&ndash;[if lt IE 10]>-->
+                                <!--<div class="jplist-label">Filter by Title:</div>-->
+                                <!--<![endif]&ndash;&gt;-->
+
+                                <!--<input-->
+                                <!--data-path=".title"-->
+                                <!--data-button="#title-search-button"-->
+                                <!--type="text"-->
+                                <!--value=""-->
+                                <!--placeholder="Filter by Title"-->
+                                <!--data-control-type="textbox"-->
+                                <!--data-control-name="title-filter"-->
+                                <!--data-control-action="filter"-->
+                                <!--/>-->
+
+                                <!--<button-->
+                                <!--type="button"-->
+                                <!--id="title-search-button">-->
+                                <!--<i class="icon-search"></i>-->
+                                <!--</button>-->
+                                <!--</div>-->
+
+
+
+
+
+                                <!-- pagination results -->
+                                <div
+                                        class="jplist-label"
+                                        data-type="页 {current} / {pages}"
+                                        data-control-type="pagination-info"
+                                        data-control-name="paging"
+                                        data-control-action="paging">
+                                </div>
+
+                                <!-- pagination -->
+                                <div
+                                        class="jplist-pagination"
+                                        data-control-type="pagination"
+                                        data-control-name="paging"
+                                        data-control-action="paging">
+                                </div>
+
+                                <!-- preloader for data sources -->
+                                <div
+                                        class="jplist-hide-preloader jplist-preloader"
+                                        data-control-type="preloader"
+                                        data-control-name="preloader"
+                                        data-control-action="preloader">
+                                    <img src="../assets/js/jplist1/ajax-loader-line.gif" alt="Loading..." title="Loading..." />
+                                </div>
+
+                                <div style="float:left;text-align: right;margin-right:30px;margin-top:10px;"><input style="display: inline-block" type="file" id="fileinput"><a class="btn btn-primary" onclick='daoru()'>导入</a></div>
+                            </div>
+
+                            <!-- ajax content here -->
+                            <div class="reportList">
+
+                                <div style="width:100%;text-align: right;padding:0px 15px;background-color: #ddd"><input type="checkbox" class="check-group"></div>
+
+                                <div class="listdiv box text-shadow">
+
+
+
+
+                                </div>
+                            </div>
+                            <!-- no result found -->
+                            <div class="box jplist-no-results text-shadow align-center jplist-hidden">
+                                <p>暂无数据发现！</p>
+                            </div>
+
+                            <!-- ios button: show/hide panel -->
+                            <div class="jplist-ios-button">
+                                <i class="fa fa-sort"></i>
+
+                            </div>
+
+                            <!-- panel -->
+                            <div class="jplist-panel box panel-bottom" style="margin: 0 0 20px 0">
+
+                                <!-- pagination results -->
+                                <div
+                                        class="jplist-label"
+                                        data-type="页 {current} / {pages}"
+                                        data-control-type="pagination-info"
+                                        data-control-name="paging"
+                                        data-control-action="paging">
+                                </div>
+
+                                <!-- pagination -->
+                                <div
+                                        class="jplist-pagination"
+                                        data-control-type="pagination"
+                                        data-control-name="paging"
+                                        data-control-action="paging"
+                                        data-control-animate-to-top="true">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end of demo -->
+                        <!--<><><><><><><><><><><><><><><><><><><><><><><><><><> DEMO END <><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <!--//////////////////////////////////////////////////////-->
+
+
+        </div>
+    </div>
+</div>
+
+<div class="up"><i class="icon-arrow-up"></i></div>
+
+</body>
+<script type="text/javascript">
+    $(function(){
+// initialize with defaults
+       /* $("#fileinput").fileinput({
+            showCaption: false
+        });*/
+
+    });
+    function detail(){
+
+        layer.open({
+
+            type:2,
+            content: '',
+            shade:0,
+            btn: ['入库', '取消']
+            ,yes: function(index, layero){
+                //按钮【按钮一】的回调
+//
+            }
+            ,cancel: function(){
+                //右上角关闭回调
+
+                //return false;  //开启该代码可禁止点击该按钮关闭
+            }
+        });
+
+    }
+
+    function refuse(){
+        //例子2
+        layer.prompt({
+            formType: 2,
+            value: '驳回原因...',
+            title: '驳回',
+            area: ['500px', '300px'] //自定义文本域宽高
+        }, function(value, index, elem){
+//            alert(value); //得到value
+            layer.close(index);
+        });
+
+    }
+</script>
+</html>

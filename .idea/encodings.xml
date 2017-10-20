@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/public/assets" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/public/assets/js/fileinput/css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/assets/js/fileinput/index.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/assets/js/fileinput/js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/bootstrap" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/public/css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/public/img" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/public/js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/public/js/async.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/js/chart.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/js/getEvidence.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/js/jquery.validate.min.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/js/messages_zh.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/js/netlog.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/js/test.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/active.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/analyse" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/views/deal" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/views/evidence" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/views/login.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/views/manage" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/views/person.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/views/report" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

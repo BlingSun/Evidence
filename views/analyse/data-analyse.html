@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+            />
+    <title></title>
+
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../assets/fontawesome/font-awesome.min.css">
+    <script src="../js/jquery-2.0.3.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../assets/js/jquery.nicescroll.min.js"></script>
+    <script src="../assets/js/echart/echarts.js"></script>
+    <script src="../assets/js/echart/china.js"></script>
+    <script src="../assets/js/jqPaginator.js"></script>
+    <script src="chart.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
+    <script src="../assets/js/select2/select2.min.js"></script>
+    <link rel="stylesheet" href="../assets/js/select2/select2.css">
+    <link rel="stylesheet" href="../assets/js/bootstrap-slider/css/bootstrap-slider.css">
+    <script src="../assets/js/bootstrap-slider/bootstrap-slider.min.js"></script>
+
+</head>
+<body>
+
+<header>
+    <div class="head-nav m-width">
+        <div class="logo">
+            <img src="../img/logoimg.png">
+            <div class="hidden-xs">大卜科技</div>
+        </div>
+        <!--<div class="nav-toggle"><hr><hr><hr></div>-->
+        <div class="toolbar">
+            <ul>
+                <li class="tool-item"><a><span class="glyphicon glyphicon-bell"></span></a></li>
+                <li class="tool-item"><a><span class="glyphicon glyphicon-folder-open"></span></a></li>
+
+                <li class="tool-item dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li>
+                            <a href="../person.html"><i class="icon-user" style="color:#337ab7;margin-right:10px;"></i>个人中心</a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li>
+                            <a href="../manage/user.html"><i class="icon-sitemap" style="color:#337ab7;margin-right:10px;"></i>账号管理</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="../login.html"><i class="icon-signout" style="color:#337ab7;margin-right:10px;"></i>退出</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--搜索框-->
+
+    </div>
+
+</header>
+<div class="container">
+    <!--<div class="slidebar">-->
+        <!--&lt;!&ndash;<div class="logo"><img src="img/logoimg.png"><span>大卜科技</span></div>&ndash;&gt;-->
+        <!--<div class="list">-->
+            <!--&lt;!&ndash;<div class="category">搜索</div>&ndash;&gt;-->
+            <!--<div class="item"><a href="manual-get.html"><i class="icon-magic"></i><span class="title">手动取证</span></a></div>-->
+            <!--<div class="item"><a href="report-info.html"><i class="icon-edit-sign"></i><span class="title">举报信息</span></a></div>-->
+            <!--<div class="item"><a href="sign-info.html"><i class="icon-calendar"></i><span class="title">标记信息</span></a></div>-->
+            <!--<div class="item"><a href="evidence-info.html"><i class="icon-ok"></i><span class="title">取证信息</span></a></div>-->
+            <!--<div class="item"><a href="evidence-save.html"><i class="icon-cog"></i><span class="title">证据保全</span></a></div>-->
+            <!--<div class="item"><a href="analyse.html"><i class="icon-home"></i><span class="title">信息分析</span></a></div>-->
+
+            <!--&lt;!&ndash;<div class="category">搜索</div>&ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="content">
+        <div class="crumb-bar">
+            <div class="m-width">
+                <a class="graph-icon" href="../report/reportList.html"><i class="icon-globe"></i><span class="hidden-xs">举报受理</span></a>
+                <a class="graph-icon" href="../evidence/report-info.html"><i class="icon-laptop"></i><span class="hidden-xs">电子取证</span></a>
+                <a class="graph-icon" href="../deal/deal-info.html"><i class=" icon-rss"></i><span class="hidden-xs">信息处置</span></a>
+                <a class="graph-icon active" href="../analyse/data-analyse.html"><i class="icon-bar-chart"></i><span class="hidden-xs">统计分析</span></a>
+            </div>
+        </div>
+        <div class="main m-width">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="chart-panel">
+                        <div class="chart-title">
+                            <a class="spot"><span style="background-color: #337ab7"></span><span>举报类型</span></a>
+                            <a class="spot"><span></span><span>信息类型</span></a>
+                        </div>
+                        <div class="chart-body">
+                            <div class="chart" id="chart1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="chart-panel">
+                        <div class="chart-title"></div>
+                        <div class="chart-body">
+                            <div class="chart" id="chart2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="chart-panel">
+                        <div class="chart-title"></div>
+                        <div class="chart-body">
+                            <div class="chart" id="chart3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="chart-panel">
+                        <div class="chart-title"></div>
+                        <div class="chart-body">
+                            <div class="chart" id="chart4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="chart-panel">
+                        <div class="chart-title"></div>
+                        <div class="chart-body">
+                            <div class="chart" id="chart5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="chart-panel">
+                        <div class="chart-title"></div>
+                        <div class="chart-body">
+                            <div class="chart" id="chart6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="chart-panel">
+                        <div class="chart-title"></div>
+                        <div class="chart-body">
+                            <div class="chart" id="chart7"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="chart-panel">
+                        <div class="chart-title"></div>
+                        <div class="chart-body">
+                            <div class="chart" id="chart8"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="chart-panel">
+                        <div class="chart-title"></div>
+                        <div class="chart-body">
+                            <div class="chart" id="chart9"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="up">
+        <i class="icon-arrow-up"></i>
+    </div>
+
+   
+    <!-- Initialize the plugin: -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+        })
+    </script>
+</body>
+</html>

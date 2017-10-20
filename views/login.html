@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+            />
+    <title></title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/messages_zh.js"></script>
+
+    <style>
+
+        html,body{
+            height:100%;
+        }
+        body{
+            background: url(img/b5.jpg) no-repeat;
+            background-size:100% 100%;
+        }
+        .form{height:100%;
+            padding:10px;
+
+        }
+        .content{
+            position:relative;
+            max-width:400px;
+            max-height:285px;
+            margin: 0 auto;
+            top:calc(50% - 200px);
+        }
+        .title{
+            text-align: center;
+            font-size:20px;
+            margin-bottom:10px;
+             color:white;
+        }
+        form{
+            padding:20px;
+            /*border:1px solid #ddd;*/
+            background-color: #3c763d;
+        }
+
+        .form-control{
+            background-color: rgba(255,255,255,0.03);
+        }
+        .error{
+            color:red;
+        }
+
+    </style>
+    <script>
+        $(function(){
+            $("#commentForm").validate({
+                submitHandler: function(form)
+                {
+                   alert("submit");
+                },
+                errorPlacement: function(error, element) {
+                    console.log(element.next());
+                    error.appendTo(element.next());
+        }
+            });
+        })
+    </script>
+</head>
+<body>
+
+<div class="form">
+
+    <div class="content">
+        <div class="title">
+            大卜科技
+        </div>
+    <form role="form" id="commentForm">
+
+        <div class="input-group">
+            <input type="text" class="form-control" id="user" name="user" placeholder="用户名" required>
+            <span class="input-group-addon"></span>
+        </div>
+        <br>
+
+        <div class="input-group">
+            <input type="text" class="form-control" id="password" name="password" placeholder="密码" required>
+            <span class="input-group-addon"></span>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-success btn-block">登陆</button>
+    </form>
+    </div>
+</div>
+
+</body>
+</html>

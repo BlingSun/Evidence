@@ -1,0 +1,77 @@
+
+@media (max-width:767px){
+
+    /*头样式*/
+    header{
+        height:50px;
+        position:absolute;
+    }
+    .head-nav{
+        height:50px;
+        background: linear-gradient(to bottom,#086ed5,#055db5);
+        box-shadow: 0 1px 2px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.15);
+        border: 1px solid #044e97;
+    }
+
+    .toolbar>ul>li>a{
+        line-height:50px;
+    }
+
+
+    .content{
+        margin-top:50px;
+    }
+    .content .main{
+        margin-top:110px;
+    }
+
+    .content  .crumb-bar{
+        position: fixed;
+        top:50px;
+        z-index: 1000;
+        width:100%;
+    }
+    /*工具栏*/
+    .content .crumb-bar .graph-icon{
+        line-height: 60px;
+    }
+
+    /*侧菜单栏*/
+    .slidebar{
+
+        top:100px;
+    }
+    .slidebar:hover{
+        width:144px;
+
+    }
+
+    /*向上滚动箭头*/
+
+    .up{
+        right:10px;
+        bottom:8px;
+        background-color: rgba(30, 85, 171, 0.51);
+    }
+/*/////////////////////////////////以上是框架手机样式////////////////////////////////////*/
+/*/////////////////////////////////以下是内容手机样式////////////////////////////////////*/
+
+    /*数据列表样式*/
+    .reportList .list .detail{float:left;}
+    .reportList .list .operate{float:right}
+    .reportList .list .title{}
+    .reportList .list .style{display: block;margin-left:0px}
+    .reportList .list .infostyle{display: block;margin-left:0px}
+    .reportList .list .time{display: block;margin-left:0px}
+    .reportList .list .info{padding:5px 0px;}
+    .reportList .list .person{display: block;margin-left:0px}
+
+
+    /*取证表单样式*/
+    .myForm .des {
+        margin-left: 10px !important;
+    }
+    .myForm input {
+        width: 100% !important;
+    }
+}

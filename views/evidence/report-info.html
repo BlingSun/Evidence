@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+            />
+    <title></title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../assets/js/bootstrap-slider/css/bootstrap-slider.css">
+    <link rel="stylesheet" href="../assets/js/layer/skin/moon/style.css">
+    <link href="../assets/js/jplist1/jplist.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="../js/jquery-2.0.3.min.js"></script>
+    <script src="../assets/js/bootstrap-slider/bootstrap-slider.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../assets/js/layer/layer.js"></script>
+    <script src="../assets/js/jqPaginator.js"></script>
+    <script src="../assets/js/echart/echarts.js"></script>
+    <!--<script src="../assets/js/jplist1/mustache.js"></script>-->
+    <script src="../js/doT.min.js"></script>
+
+    <!-- dot template -->
+    <script id="template" type="text/x-dot-template">
+        {{ for(var i=0;i<=it.length-1;i++) { }}
+        <div class="list clearfix">
+            <div class="jietu"><img src="../img/b2.jpg"></div>
+            <div class="detail">
+                <div>
+                    <a href="{{=it[i].href}}" target="_blank" class="title">{{=it[i].name}}</a>
+                    <span class="time">时间：{{=it[i].data}}</span>
+                </div>
+                <div>
+                    <span class="style">举报类型：{{=it[i].style}}</span>
+                    <span class="infostyle">信息类型：{{=it[i].infostyle}}</span>
+                    <span class="person">举报人员：{{=it[i].customer}}</span>
+
+                </div>
+                <div class="info">举报内容：wrfsfsdsf</div>
+                <div class="prog">
+                    <input class="pro" type="text" data-slider-value="{{=it[i].step}}"/>
+                </div>
+            </div>
+            <div class="operate">
+                {{switch(it[i].step){ case 1:}}
+                 <i class="icon-spinner icon-spin"></i><span>正在截图</span>
+                {{; break;}}
+                {{case 2:}}
+                <i class="icon-spinner icon-spin"></i><span>正在获取源码</span>
+                {{; break;}}
+                {{case 3:}}
+                <i class="icon-spinner icon-spin"></i><span>正在获取服务器信息</span>
+                {{; break;}}
+                {{case 4:}}
+                <i class="icon-spinner icon-spin"></i><span>正在保全</span>
+                {{; break;}}
+                {{case 5:}}
+                <a class="spot" onclick="detail()"><span style="background-color: #337ab7"></span><span>查看</span></a>
+                {{; break;}}
+                {{ } }}
+
+            </div>
+        </div>
+        {{ } }}
+
+    </script>
+    <style>
+
+        .slider.slider-horizontal{
+            max-width:100%;
+            width:300px;
+        }
+        @media (max-width: 700px) {
+            .slider.slider-horizontal{
+                width:210px;
+            }
+        }
+
+    </style>
+    <script>
+        $(function(){
+            $(".data").hover(function(){
+                $(this).addClass("bounce");
+            },
+            function(){
+                $(this).removeClass("bounce");
+            });
+        });
+        var doi=14784;
+        var done=12674;
+        function doing(){
+            doi=doi+Math.floor(Math.random()*100);
+            console.log(doi);
+            $("#doing").html(doi);
+        }
+        function success(){
+            done=done+Math.floor(Math.random()*100);
+            console.log(done);
+            $("#done").html(done);
+        }
+//        setInterval(doing,1000);
+//        setInterval(success,1000);
+    </script>
+<style>
+    .operate i{
+        font-size:25px;
+        color: #ff500a;
+        margin-right:20px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="head-nav m-width">
+        <div class="logo">
+            <img src="../img/logoimg.png">
+            <div class="hidden-xs">大卜科技</div>
+        </div>
+
+        <!--<div class="nav-toggle"><hr><hr><hr></div>-->
+        <div class="toolbar">
+            <ul>
+                <li class="tool-item"><a><span class="glyphicon glyphicon-bell"></span></a></li>
+                <!--<li class="tool-item"><a><span class="glyphicon glyphicon-folder-open"></span></a></li>-->
+
+                <li class="tool-item dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li>
+                            <a href="../person.html"><i class="icon-user" style="color:#337ab7;margin-right:10px;"></i>个人中心</a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li>
+                            <a href="../manage/user.html"><i class="icon-sitemap" style="color:#337ab7;margin-right:10px;"></i>账号管理</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="../login.html"><i class="icon-signout" style="color:#337ab7;margin-right:10px;"></i>退出</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--搜索框-->
+        <!--<div class="input-group hidden-xs search">-->
+            <!--<span class="input-group-addon" style="color:white;background-color:rgba(255,255,255,0);"><i class="icon-search"></i></span>-->
+            <!--<input type="text" class="form-control" style="color:white;background-color:rgba(255,255,255,0);border:1px solid #ddd">-->
+        <!--</div>-->
+    </div>
+
+</header>
+<div class="container">
+    <!--<div class="slidebar">
+        &lt;!&ndash;<div class="logo"><img src="img/logoimg.png"><span>大卜科技</span></div>&ndash;&gt;
+        <div class="list">
+            &lt;!&ndash;<div class="category">搜索</div>&ndash;&gt;
+            <div class="item"><a href="manual-get.html"><i class="icon-leaf"></i><span class="title">人工取证</span></a></div>
+            <div class="item"><a href="report-info.html"><i class="icon-magic icon-spin"></i><span class="title">举报案件</span></a></div>
+            <div class="item"><a href="sign-info.html"><i class="icon-star-empty"></i><span class="title">标记案件</span></a></div>
+            <div class="item"><a href="evidence-info.html"><i class="icon-ok-circle"></i><span class="title">取证案件</span></a></div>
+           <div class="item"><a href="analyse.html"><i class="icon-bar-chart"></i><span class="title">信息分析</span></a></div>
+
+            &lt;!&ndash;<div class="category">搜索</div>&ndash;&gt;
+        </div>
+    </div>-->
+    <div class="content">
+        <div class="crumb-bar">
+            <div class="m-width">
+                <a class="graph-icon" href="../report/reportList.html"><i class="icon-globe"></i><span class="hidden-xs">举报受理</span></a>
+                <a class="graph-icon active" href="../evidence/report-info.html"><i class="icon-laptop"></i><span class="hidden-xs">电子取证</span></a>
+                <a class="graph-icon" href="../deal/deal-info.html"><i class=" icon-rss"></i><span class="hidden-xs">信息处置</span></a>
+                <a class="graph-icon" href="../analyse/data-analyse.html"><i class="icon-bar-chart"></i><span class="hidden-xs">统计分析</span></a>
+            </div>
+        </div>
+        <div class="main m-width">
+
+           <!-- <div class="funbtn" style="text-align: center">
+               <i onclick="manual_get()" class="icon-edit waves-effect waves-circle" style="background: #1bb556;color: #fff;"></i>取证
+               <i onclick="data_import()" class="icon-upload-alt waves-effect waves-circle" style="background: #ff6400;color: #fff;"></i>导入
+               <i onclick="analyse()" class="icon-signal waves-effect waves-circle" style="background: #eb4d7e;color: #fff;"></i>分析
+            </div>-->
+
+
+
+                <div class="row">
+                    <div class="col-sm-6" style="background-color:rgba(30, 128, 122, 1);box-shadow: 0 0 15px rgba(30, 128, 122, 1)">
+                        <div class="data animated">
+                            <i class="icon-spinner icon-spin icon-2x"></i>
+                            <em id="done">140203</em>
+                            <div>已完成取证...</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="background-color:#e38d13;box-shadow: 0 0 15px #e38d13;">
+                        <div class="data animated">
+                            <i class="icon-spinner icon-spin icon-2x"></i>
+                            <em id="doing">140203</em>
+                            <div>正在取证...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reportList" id="reportList">
+
+                </div>
+
+            <div class="page">
+                <ul class="pagination" id="page">
+                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="up"><i class="icon-arrow-up"></i></div>
+
+</body>
+<script type="text/javascript">
+    $(function(){
+
+        $.ajax({
+            type:'get',
+            cache:false,
+            url:"http://localhost:3000/evidence",
+            success:function(data){
+                var total=Math.ceil(data.total/10);
+                console.log(data);
+                console.log(total);
+                console.log(data.result.length);
+                var template = doT.template($("#template").text());
+                $("#reportList").html(template(data.result));
+                slider();
+                $('#page').jqPaginator({
+                    totalPages: total,
+                    visiblePages: 3,
+                    currentPage: 1,
+                    first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
+                    prev: '<li class="prev"><a href="javascript:void(0);">上一页<\/a><\/li>',
+                    next: '<li class="next"><a href="javascript:void(0);">下一页<\/a><\/li>',
+                    last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
+                    page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
+                    onPageChange: function(num){
+
+                        $.ajax({
+                            type:'get',
+                            cache:false,
+                            url:"http://localhost:3000/page?page="+num,
+                            success:function(data){
+                                result=data.result;
+                                console.log(result);
+
+                                var template = doT.template($("#template").text());
+                                $("#reportList").html(template(result));
+                                slider();
+
+                            },
+                            error:function(xhr){
+                                alert("error message:"+xhr.status+xhr.statusText);
+                            }
+                        })
+                    }
+                });
+
+            },
+            error:function(xhr){
+                alert("error message:"+xhr.status+xhr.statusText);
+            }
+        });
+
+
+        /*setInterval(updata,2000);*/
+
+    });
+
+    function slider(){
+        // With JQuery
+        $('.pro').slider({
+            formatter: function(value) {
+                switch (value){
+                    case 1:return '正在截图';
+                        break;
+                    case 2:
+                        return '正在获取源码';
+                        break;
+                    case 3:
+                        return '正在获取服务器信息';
+                    case 4:
+                        return '正在保全';
+                        break;
+                    case 5:
+                        return '取证完成';
+                        break;
+                }
+                return 'Current value: ' + value;
+            },
+            ticks: [1,2,3,4,5],
+            ticks_labels: ['截图', '源码', '服务器','保全','完成'],
+            ticks_snap_bounds: 30,
+            tooltip: 'always',
+            enabled:false,
+            step:1
+        });
+    }
+    function setStatue(){
+
+    }
+
+    function updata(){
+        $.ajax({
+            type:'get',
+            cache:false,
+            url:"http://localhost:3000/evidence",
+            success:function(data){
+                var total=Math.ceil(data.total/10);
+                console.log(data);
+                console.log(total);
+                console.log(data.result.length);
+                var template = doT.template($("#template").text());
+                $("#reportList").html(template(data.result));
+                slider();
+                $('#page').jqPaginator('option',{
+                    totalPages: total
+                });
+                var num=$(".page.active").attr("jp-data");
+
+                $.ajax({
+                    type:'get',
+                    cache:false,
+                    url:"http://localhost:3000/page?page="+num,
+                    success:function(data){
+                        result=data.result;
+                        console.log(result);
+                        var template = doT.template($("#template").text());
+                        $("#reportList").html(template(result));
+                        slider();
+                    },
+                    error:function(xhr){
+                        alert("error message:"+xhr.status+xhr.statusText);
+                    }
+                })
+            },
+            error:function(xhr){
+                alert("error message:"+xhr.status+xhr.statusText);
+            }
+        });
+    }
+
+
+
+    function area(){
+        console.log($(window).width()+"ffff");
+        if($(window).width()>1000){
+            return ["1000px","700px"];
+        }
+        else{
+            return ["100%","100%"];
+        }
+    };
+    function detail(){
+
+        layer.open({
+            type:2,
+            content:'../deal/evidence-detail.html',
+            shade:0,
+            area:[area()[0],area()[1]],
+            maxmin: true,
+            scrollbar: false,
+            btn: ['下载','鉴定','举报']
+            ,yes: function(index, layero){
+                //按钮【按钮一】的回调
+//                layer.alert('内容');
+//                jietu();
+                return false;  //开启该代码可禁止点击该按钮关闭
+            }
+            ,btn2: function(index, layero){
+                //按钮【按钮二】的回调
+
+                return false;  //开启该代码可禁止点击该按钮关闭
+            }
+            ,btn3: function(index, layero){
+                //按钮【按钮三】的回调
+
+                return false; // 开启该代码可禁止点击该按钮关闭
+            }
+            ,cancel: function(){
+                //右上角关闭回调
+
+                //return false;  //开启该代码可禁止点击该按钮关闭
+            }
+        });
+
+    }
+
+    function manual_get(){
+        layer.open({
+            type:2,
+            content:'manual-get.html',
+            skin: 'layui-layer-rim', //加上边框
+            shade:0,
+            area:[area()[0],area()[1]],
+            maxmin: true,
+            scrollbar: false
+
+        })
+    }
+    function data_import(){
+        layer.open({
+            type:2,
+            content:'manual-get.html',
+            shade:0,
+            area:[area()[0],area()[1]],
+            maxmin: true,
+            scrollbar: false
+
+        })
+    }
+
+    function refuse(){
+        //例子2
+        layer.prompt({
+            formType: 2,
+            value: '驳回原因...',
+            title: '驳回',
+            area: ['500px', '300px'] //自定义文本域宽高
+        }, function(value, index, elem){
+//            alert(value); //得到value
+            layer.close(index);
+        });
+
+    }
+</script>
+</html>

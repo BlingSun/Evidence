@@ -1,0 +1,32 @@
+a{text-decoration: none !important;}
+/*下拉菜单打开后按钮样式*/
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus{
+    background-color: #1964d3;
+    border-color: #1964d3;
+}
+/*下拉菜单的尖角样式*/
+.dropdown-menu:after{
+    position: absolute;
+    top: -6px;
+    right: 10px;
+    display: inline-block;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #ddd;
+    border-left: 6px solid transparent;
+    content: '';
+}
+
+
+.form-control{
+    border-radius:0px;
+    border: 1px solid #efd600;
+}
+
+label{
+  font-weight: normal;
+    font-size:18px;
+}
+
+.btn{
+    border-radius: 0px;
+}

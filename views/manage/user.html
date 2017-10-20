@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+            />
+    <title></title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../assets/js/layer/skin/moon/style.css">
+    <link rel="stylesheet" href="../assets/js/waves/waves.css">
+    <script src="../js/jquery-2.0.3.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../assets/js/jquery.nicescroll.min.js"></script>
+
+    <script src="../assets/js/waves/waves.js"></script>
+    <script src="../assets/js/layer/layer.js"></script>
+
+    <link href="../assets/js/jplist1/jplist.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="../assets/js/jplist1/jplist.core-ajax.min.js"></script>
+    <!--<script src="../assets/js/jplist1/jplist.counter-control.min.js"></script>  -->
+    <script src="../assets/js/jplist1/jplist.pagination-bundle.min.js"></script>
+    <script src="../assets/js/jplist1/jplist.preloader-control.min.js"></script>
+
+    <script src="../assets/js/jplist1/mustache.js"></script>
+
+    <script>
+        $('document').ready(function () {
+            /**
+             * user defined functions
+             */
+            jQuery.fn.jplist.settings = {
+
+                /**
+                 * jQuery UI date picker
+                 */
+                datepicker: function(input, options){
+
+                    //set options
+                    options.dateFormat = 'mm/dd/yy';
+                    options.changeMonth = true;
+                    options.changeYear = true;
+
+                    //start datepicker
+                    input.datepicker(options);
+                }
+
+            };
+
+            var $list = $('#demo .listdiv')
+                    , template = Mustache.compile($('#jplist-template').html());
+
+            //init jplist with php + mysql data source, json and Mustache template
+            $('#demo').jplist({
+
+                itemsBox: '.list'
+                , itemPath: '.list-item'
+                , panelPath: '.jplist-panel'
+
+                //data source
+                , dataSource: {
+
+                    type: 'server'
+                    , server: {
+
+                        //ajax settings
+                        ajax: {
+                            url: '../../server/server-json.php'
+                            , dataType: 'json'
+                            , type: 'POST'
+                        }
+                    }
+
+                    //render function for json + templates like Mustache, xml + xslt etc.
+                    , render: function (dataItem, statuses) {
+                        $list.html(template(dataItem.content));
+                    }
+                }
+
+            });
+
+            $(".jplist-group li").click(function(){
+                console.log($(this).hasClass("jplist-selected"));
+                if(!$(this).hasClass("jplist-selected")){
+                    $(this).addClass("jplist-selected");
+                }
+                else{
+                    $(this).removeClass("jplist-selected");
+                }
+            })
+        });
+    </script>
+    <!-- Mustache template -->
+    <script id="jplist-template" type="x-tmpl-mustache">
+     <div>
+        <table class="table table-striped table-bordered table-hover">
+            <caption>用户信息</caption>
+            <thead>
+            <tr class="danger">
+                <th>名称</th>
+                <th>账号</th>
+                <th>密码</th>
+                <th>权限</th>
+                <th>联系方式</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#.}}
+                <tr>
+                    <td>Tanmay</td>
+                    <td>Tanmay</td>
+                    <td>123</td>
+                    <td>1，2，3</td>
+                    <td>560001</td>
+                    <td>
+                        <i onclick="edit()" class="icon-edit waves-effect waves-circle" ></i>
+                        <i onclick="del()" class="icon-trash waves-effect waves-circle"></i>
+                    </td>
+                </tr>
+           {{/.}}
+            </tbody>
+        </table>
+      </div>
+		</script>
+    <style>
+        .jplist-panel .jplist-group{
+            border:none;
+            text-shadow:none;
+
+        }
+        .jplist-panel .jplist-group ul li{
+            padding: 0 5px;
+
+        }
+        .jplist-selected{
+            background-color:#efd600;
+            color:#fff;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="head-nav m-width">
+        <div class="logo">
+            <img src="../img/logoimg.png">
+            <div class="hidden-xs">大卜科技</div>
+        </div>
+        <!--<div class="nav-toggle"><hr><hr><hr></div>-->
+        <div class="toolbar">
+            <ul>
+                <li class="tool-item"><a><span class="glyphicon glyphicon-bell"></span></a></li>
+                <!--<li class="tool-item"><a><span class="glyphicon glyphicon-folder-open"></span></a></li>-->
+
+                <li class="tool-item dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li>
+                            <a href="../person.html"><i class="icon-user" style="color:#337ab7;margin-right:10px;"></i>个人中心</a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li>
+                            <a href="../manage/user.html"><i class="icon-sitemap" style="color:#337ab7;margin-right:10px;"></i>账号管理</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="../login.html"><i class="icon-signout" style="color:#337ab7;margin-right:10px;"></i>退出</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--搜索框-->
+        <!--<div class="input-group hidden-xs search">-->
+            <!--<span class="input-group-addon" style="color:white;background-color:rgba(255,255,255,0);"><i class="icon-search"></i></span>-->
+            <!--<input type="text" class="form-control" style="color:white;background-color:rgba(255,255,255,0);border:1px solid #ddd">-->
+        <!--</div>-->
+    </div>
+
+</header>
+<div class="container">
+
+    <div class="content">
+        <div class="crumb-bar">
+            <div class="m-width">
+                <a class="graph-icon" href="../report/reportList.html"><i class="icon-globe"></i><span class="hidden-xs">举报受理</span></a>
+                <a class="graph-icon" href="../evidence/report-info.html"><i class="icon-laptop"></i><span class="hidden-xs">电子取证</span></a>
+                <a class="graph-icon" href="../deal/deal-info.html"><i class=" icon-rss"></i><span class="hidden-xs">信息处置</span></a>
+                <a class="graph-icon" href="../analyse/data-analyse.html"><i class="icon-bar-chart"></i><span class="hidden-xs">统计分析</span></a>
+            </div>
+        </div>
+        <div class="main m-width">
+
+            <div class="funbtn" style="text-align: center">
+                <i onclick="add()" class="icon-edit waves-effect waves-circle" style="background: #1bb556;color: #fff;"></i>添加
+                <!--<i onclick="data_import()" class="icon-upload-alt waves-effect waves-circle" style="background: #ff6400;color: #fff;"></i>导入
+                <i onclick="analyse()" class="icon-signal waves-effect waves-circle" style="background: #eb4d7e;color: #fff;"></i>分析
+           --> </div>
+
+
+
+            <!--//////////////////////////////////////////////////////-->
+
+
+            <div>
+                <!-- main content -->
+                <div class="box">
+                    <div class="center">
+                        <!--<><><><><><><><><><><><><><><><><><><><><><><><><><> DEMO START <><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+
+
+
+                        <!-- demo -->
+                        <div id="demo" class="box jplist">
+
+                            <!-- ios button: show/hide panel -->
+                            <div class="jplist-ios-button">
+                                <i class="fa fa-sort"></i>
+                            </div>
+                            <!-- panel -->
+                            <div class="jplist-panel box panel-top">
+
+
+                                <div
+                                        class="jplist-drop-down"
+                                        data-control-type="items-per-page-drop-down"
+                                        data-control-name="paging"
+                                        data-control-action="paging">
+
+                                    <ul>
+                                        <li><span data-number="3"> 3 / 页 </span></li>
+                                        <li><span data-number="5"> 5 / 页 </span></li>
+                                        <li><span data-number="10" data-default="true"> 10 / 页 </span></li>
+                                        <li><span data-number="all"> 全部 </span></li>
+                                    </ul>
+                                </div>
+
+
+
+                                <!-- pagination results -->
+                                <div
+                                        class="jplist-label"
+                                        data-type="页 {current} / {pages}"
+                                        data-control-type="pagination-info"
+                                        data-control-name="paging"
+                                        data-control-action="paging">
+                                </div>
+
+                                <!-- pagination -->
+                                <div
+                                        class="jplist-pagination"
+                                        data-control-type="pagination"
+                                        data-control-name="paging"
+                                        data-control-action="paging">
+                                </div>
+
+                                <!-- preloader for data sources -->
+                                <div
+                                        class="jplist-hide-preloader jplist-preloader"
+                                        data-control-type="preloader"
+                                        data-control-name="preloader"
+                                        data-control-action="preloader">
+                                    <img src="../assets/js/jplist1/ajax-loader-line.gif" alt="Loading..." title="Loading..." />
+                                </div>
+                            </div>
+
+                            <!-- ajax content here -->
+                            <div class="reportList">
+                                <div class="listdiv box text-shadow">
+
+                                    <div>
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <caption>用户信息</caption>
+                                            <thead>
+                                            <tr class="danger">
+                                                <th>名称</th>
+                                                <th>账号</th>
+                                                <th>密码</th>
+                                                <th>权限</th>
+                                                <th>联系方式</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>Tanmay</td>
+                                                <td>Tanmay</td>
+                                                <td>123</td>
+                                                <td>1，2，3</td>
+                                                <td>560001</td>
+                                                <td>
+                                                    <i onclick="edit()" class="icon-edit waves-effect waves-circle" ></i>
+                                                    <i onclick="del()" class="icon-trash waves-effect waves-circle"></i>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tanmay</td>
+                                                <td>Tanmay</td>
+                                                <td>123</td>
+                                                <td>1，2，3</td>
+                                                <td>560001</td>
+                                                <td>
+                                                    <i onclick="edit()" class="icon-edit waves-effect waves-circle" ></i>
+                                                    <i onclick="del()" class="icon-trash waves-effect waves-circle"></i>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tanmay</td>
+                                                <td>Tanmay</td>
+                                                <td>123</td>
+                                                <td>1，2，3</td>
+                                                <td>560001</td>
+                                                <td>
+                                                    <i onclick="edit()" class="icon-edit waves-effect waves-circle" ></i>
+                                                    <i onclick="del()" class="icon-trash waves-effect waves-circle"></i>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- no result found -->
+                            <div class="box jplist-no-results text-shadow align-center jplist-hidden">
+                                <p>暂无数据发现！</p>
+                            </div>
+
+                            <!-- ios button: show/hide panel -->
+                            <div class="jplist-ios-button">
+                                <i class="fa fa-sort"></i>
+
+                            </div>
+                            <!-- panel -->
+                            <div class="jplist-panel box panel-bottom" style="margin: 0 0 20px 0">
+
+                                <!-- pagination results -->
+                                <div
+                                        class="jplist-label"
+                                        data-type="页 {current} / {pages}"
+                                        data-control-type="pagination-info"
+                                        data-control-name="paging"
+                                        data-control-action="paging">
+                                </div>
+
+                                <!-- pagination -->
+                                <div
+                                        class="jplist-pagination"
+                                        data-control-type="pagination"
+                                        data-control-name="paging"
+                                        data-control-action="paging"
+                                        data-control-animate-to-top="true">
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end of demo -->
+                        <!--<><><><><><><><><><><><><><><><><><><><><><><><><><> DEMO END <><><><><><><><><><><><><><><><><><><><><><><><><><>-->
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <!--//////////////////////////////////////////////////////-->
+        </div>
+    </div>
+</div>
+
+<div class="up">
+    <i class="icon-arrow-up"></i>
+</div>
+<script>
+    $(function(){
+        Waves.init();
+
+    });
+    function del(){
+//询问框
+        layer.confirm('确认删除？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            layer.msg('已删除！', {icon: 1,time:500});
+        });
+    }
+    function area(){
+        console.log($(window).width()+"ffff");
+        if($(window).width()>1000){
+            return ["600px","500px"];
+        }
+        else{
+            return ["100%","100%"];
+        }
+    };
+    function edit(){
+        layer.open({
+            type:2,
+            shade:0,
+            area:[area()[0],area()[1]],
+            maxmin: true,
+            scrollbar: false,
+            content:'edit.html'
+        })
+    }
+    function add(){
+        layer.open({
+            type:2,
+            shade:0,
+            area:[area()[0],area()[1]],
+            maxmin: true,
+            scrollbar: false,
+            content:'edit.html'
+        })
+
+    }
+</script>
+</body>
+</html>
